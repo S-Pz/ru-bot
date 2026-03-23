@@ -178,3 +178,5 @@ def csa_ctan_maker(pdf_file: str) -> pd.DataFrame:
     #df.to_csv(f'~/Documents/bot_ru/csv/{name_file_csv[0]}_menu.csv', index = False)
            
     return df
+
+#csa_ctan_maker(pdf_file = '../pdf/ctan.pdf')

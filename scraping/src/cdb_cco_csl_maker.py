@@ -140,4 +140,4 @@ def cdb_cco_csl_maker(pdf_file: str) -> pd.DataFrame:
     #df.to_csv(f'~/Documents/bot_ru/csv/{name_file_csv[0]}_menu.csv', index = False)
 
     return df
-cdb_cco_csl_maker("../Menus/csl.pdf")
+#cdb_cco_csl_maker("../Menus/csl.pdf")

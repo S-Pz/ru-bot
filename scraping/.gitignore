@@ -1,11 +1,13 @@
 #Directory
 .venv/
 __pycache__/
-.vscode/
 Menus/
 
-#File
+#Files
 *.env
 *.json
 *.sh
 *.db
+
+### VS Code ###
+.vscode/
