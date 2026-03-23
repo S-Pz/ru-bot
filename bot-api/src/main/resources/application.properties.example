@@ -1,0 +1,20 @@
+# Porta Servidor
+server.port=
+
+#Docker
+spring.docker.compose.enabled=
+
+# Configuração do Banco de Dados (PostgreSQL)
+spring.datasource.url=
+spring.datasource.username=
+spring.datasource.password=
+spring.datasource.driver-class-name=
+
+# Configuração JPA  
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+#Nome da aplicação
+spring.application.name=bot-api
