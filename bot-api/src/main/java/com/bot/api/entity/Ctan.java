@@ -2,6 +2,8 @@ package com.bot.api.entity;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +18,9 @@ public class Ctan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
+
     private String diaDaSemana;
     private String horario;
     private String pratoPricipal;
@@ -119,4 +123,5 @@ public class Ctan {
     public void setSobremesa(String sobremesa){
         this.sobremesa = sobremesa;
     }
+
 }
