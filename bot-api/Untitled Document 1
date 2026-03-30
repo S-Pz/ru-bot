@@ -14,17 +14,16 @@ CSA-UFSJ => DATA, HORÁRIO, PRATO PRINCIPAL, OVOS, VEGETARIANO, GUARNIÇÃO, ARR
 
     "dia_semana": "Segunda-feira",
 
-    "almoco": {"prato_principal": "...", "vegetariano":"...", "guarnicao": "...", "salada": "...","Feijão": "...", "suco": "...", "sobremesa": "..."},
-
+    "almoco": {"prato_principal": "...", "vegetariano":"...", "guarnicao": "...","salada1": "...","salada2": "...","feijao": "...", "suco": "...", "sobremesa": "..."}
 
   },
   {
 
     "data": "DD/MM/YYYY",
 
-    "dia_semana": "Segunda-feira",
+    "diaDaSemana": "Segunda-feira",
 
-    "jantar": {"prato_principal": "...", "vegetariano":"...", "guarnicao": "...", "salada": "...","Feijão": "...", "suco": "...", "sobremesa": "..."}
+    "jantar": {"pratoPrincipal": "...", "vegetariano":"...", "guarnicao": "...", "salada1": "...","salada2": "...", "feijao": "...", "suco": "...", "sobremesa": "..."}
 
   },
 

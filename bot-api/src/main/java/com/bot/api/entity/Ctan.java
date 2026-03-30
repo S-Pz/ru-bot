@@ -1,8 +1,9 @@
 package com.bot.api.entity;
 
 import java.time.LocalDate;
+import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.bot.api.dto.CtanDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +19,6 @@ public class Ctan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
 
     private String diaDaSemana;
@@ -31,6 +31,29 @@ public class Ctan {
     private String feijao;
     private String suco;
     private String sobremesa;
+
+    public Ctan(){
+
+    }
+
+    public Ctan(CtanDTO dto){
+        
+        this.data = dto.getData();
+        this.diaDaSemana = dto.getDiaDaSemana();
+        this.horario = dto.getHorario();
+
+        if(dto.getMap() != null){
+            Map<String, String> map = dto.getMap();
+            this.pratoPricipal = map.get("pratoPrincipal");
+            this.vegetariano = map.get("vegetariano");
+            this.guarnicao = map.get("guarnicao");
+            this.feijao = map.get("feijao");
+            this.suco = map.get("suco");
+            this.sobremesa = map.get("sobremesa");
+            this.salada1 = map.get("salada1");
+            this.salada2 = map.get("salada2");
+        }
+    }
 
     public Long getId(){
         return id;

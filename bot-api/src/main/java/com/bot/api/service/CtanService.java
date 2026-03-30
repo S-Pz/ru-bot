@@ -1,11 +1,15 @@
 package com.bot.api.service;
 
+import com.bot.api.dto.CtanDTO;
 import com.bot.api.entity.Ctan;
 import com.bot.api.repository.CtanRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class CtanService {
    
@@ -15,20 +19,49 @@ public class CtanService {
         this.repository = ctanRepository;
     }
 
-    public Ctan findByDataAndHorario (LocalDate data, String horario){
+    public Ctan findByHorarioAndData (String horario, LocalDate data){
         
-        return repository.findByDataAndHorario(data, horario)
-            .orElseThrow(()-> new RuntimeException ("Nenhuma data e horário encontrado."));
+        return repository.findByHorarioAndData(horario, data)
+            .orElseThrow(()-> new RuntimeException ("Nada encontrado para a data e horário."));
     }
 
-    public Ctan findByData (LocalDate data){
+    // public List<Ctan> findByDataAndHorario (LocalDate data, String horario){
         
-        return repository.findByData(data)
-            .orElseThrow(()-> new RuntimeException ("Nenhuma data encontrada."));
+    //     List<Ctan> result = repository.findByDataAndHorario(data, horario);
+        
+    //     if (result.isEmpty()){
+    //         throw new RuntimeException("Nenhum dado encontrado para a data e hora");
+    //     }
+
+    //     return result;
+    // }
+
+    public List<Ctan> findByData (LocalDate data){
+        
+        List<Ctan> result = repository.findByData(data);
+
+        if (result.isEmpty()){
+           throw new RuntimeException("Nenhuma data encontrada."); 
+        }
+
+        return result;
     }
 
-    public List<Ctan> crate (List<Ctan> ctan){
+    public List<Ctan> crate (List<CtanDTO> ctanDto){
+        
+        if (!ctanDto.isEmpty()){
+            
+            List<Ctan> list = new ArrayList<>();
+    
+            for (CtanDTO ctan : ctanDto) {
+                list.add(new Ctan(ctan));
+            }
+            
+            return repository.saveAll(list);
 
-        return repository.saveAll(ctan);
+        } else {
+            
+            throw new RuntimeException("Não foi possível salvar, lista vazia.");
+        }
     }
 }
