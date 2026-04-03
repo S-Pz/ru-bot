@@ -1,11 +1,12 @@
 from telegram import Update
 from telegram.ext import ContextTypes
+from app.utils.file_utils import file_reader
 
-from utils.file_utils import file_reader
+TAMPLATES_DIR = "app/templates"
 
 async def start_callback(update:Update, context:ContextTypes.DEFAULT_TYPE):
-    
-    response:str = file_reader('../templates/start_command.md')
+
+    response:str = file_reader(TAMPLATES_DIR, "start_command.md")
     
     await update.message.reply_html(response)
 
@@ -18,9 +19,19 @@ async def start_callback(update:Update, context:ContextTypes.DEFAULT_TYPE):
 async def about_callback(update:Update, context:ContextTypes.DEFAULT_TYPE):
     pass
 
+async def help_job_callback(context: ContextTypes.DEFAULT_TYPE):
+    # O contexto de um job tem um atributo 'job' que guarda as configurações da tarefa
+    response: str = file_reader(TAMPLATES_DIR, "help_command.md")
+    
+    await context.bot.send_message(
+        chat_id=context.job.chat_id, # Pegamos o chat_id que passamos ao agendar a tarefa
+        text=response,
+        parse_mode='HTML'
+    )
+
 async def help_callback(update:Update, context:ContextTypes.DEFAULT_TYPE):
     
-    response:str = file_reader('../templates/help_command.md')
+    response:str = file_reader(TAMPLATES_DIR, "help_command.md")
     
     await context.bot.send_message(
         chat_id=update.effective_chat.id, 
@@ -29,3 +40,4 @@ async def help_callback(update:Update, context:ContextTypes.DEFAULT_TYPE):
         parse_mode='HTML'
     )
 
+    context.job_queue.run_repeating(help_job_callback, interval=2, chat_id=update.effective_chat.id)
