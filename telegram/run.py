@@ -15,7 +15,6 @@ def main():
     bot_app = Bot(BOT_TOKEN, BOT_USERNAME)
     
     bot_app.common_handlers()
-    bot_app.job_queue_test()
     bot_app.run()
 
 if __name__ == '__main__':
