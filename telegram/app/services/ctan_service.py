@@ -6,7 +6,7 @@ load_dotenv()
 
 API_BASE_PATH = os.getenv('API_BASE_PATH')
 
-def find_by_data_and_horario (horario:str, data:str):
+def find_by_date_and_horario (horario:str, data:str):
    
     response = req.get(f"{API_BASE_PATH}/ctan", params={"horario":horario, "data":data})
 

@@ -1,7 +1,11 @@
-def output_formated(data:dict)-> str:
+import datetime
 
-    header = "📅 *"+ data.get("data") + "*" + " | " + "*"+ data.get("diaDaSemana") +"*\n\n"
-    main_course = "🍴 *Prato Principal:* " + data.get("pratoPricipal")+ "\n\n"
+def output_formated(data:dict)-> str:
+    
+    date = datetime.datetime.strptime(data.get("data"), "%Y-%m-%d")
+    
+    header = "📅 *" + date.strftime("%d-%m-%Y") + "*" + " | " + "*" + data.get("diaDaSemana") + "*\n\n"
+    main_course = "🍴 *PRATO PRINCIPAL:* " + data.get("pratoPricipal")+ "\n\n"
     vege = "🥬 *VEGETARIANO:* " + data.get("vegetariano") + "\n"
     garni = "🍝 *GUARNIÇÃO:* " + data.get("guarnicao") + "\n"
     bean = "🫘 *FEIJÃO:* " + data.get("feijao") + "\n"
