@@ -16,6 +16,7 @@ def main():
     
     bot_app.common_handlers()
     bot_app.lunch_handlers()
+    
     bot_app.run()
 
 if __name__ == '__main__':

@@ -15,3 +15,5 @@ Estou aqui para ajudar você a encontrar informações sobre os Ru's de maneira 
 </blockquote>
 
 Para saber mais, digite: <b>/ajuda!</b>
+
+Escolha abaixo qual ru deseja receber o cardápio de forma automática:
