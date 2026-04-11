@@ -1,81 +1,48 @@
 import os
 import pathlib
+import json
 
 from google import genai
 from google.genai import types
-from pydantic import BaseModel, Field
-from typing import List, Optional
 
 from dotenv import load_dotenv
-from screpping import obtain_menus
+
+from utils.screpping import obtain_menus
+from utils.formats import urls, format_json_prompt
+from service.api_service import save_ctan_menu
 
 load_dotenv()
 
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 
-
-urls:dict = {
-
-    'csa':'https://ufsj.edu.br/proae/ru_csa.php',
-    'ctan': 'https://ufsj.edu.br/proae/ru-ctan.php',
-    'cdb': 'https://ufsj.edu.br/proae/ru_cdb.php',
-    'csl': 'https://ufsj.edu.br/proae/r-csl.php',
-    'cco': 'https://ufsj.edu.br/proae/r-cco.php',
-    'cap': 'https://ufsj.edu.br/proae/r-cap.php'
-}
-
-format_content:list = [
-  {
-    "data": "DD/MM/YYYY",
-    "dia_semana": "Segunda-feira",
-    "almoco": {"prato_principal": "...", 
-               "vegetariano":"...", 
-               "guarnicao": "...",
-               "salada1": "...",
-               "salada2": "...",
-               "feijao": "...", 
-               "suco": "...", 
-               "sobremesa": "..."
-               }
-
-  },
-  {
-
-    "data": "DD/MM/YYYY",
-    "diaDaSemana": "Segunda-feira",
-    "jantar": {"pratoPrincipal": "...",
-               "vegetariano":"...",
-               "guarnicao": "...",
-               "salada1": "...",
-               "salada2": "...",
-               "feijao": "...",
-               "suco": "...",
-               "sobremesa": "..."
-               }
-
-  },
-]
-
-def main():
+def use_ia(file_path:str, client, prompt:str):
     
-    for i in urls:
-        obtain_menus(urls[i], str(i))
-
-    file_path_ctan = pathlib.Path('../Menus/ctan.pdf')
-
-    prompt = f"Extrai do pdf o cadápio seguindo estruta json fornecida e não coloque o valor dos campos em caixa alta: {format_content}" 
-
-    client = genai.Client(api_key= GEMINI_API_KEY)
-
     response = client.models.generate_content(
         model="gemini-3-flash-preview",
         contents=[
             types.Part.from_bytes(
-            data=file_path_ctan.read_bytes(),
+            data=file_path.read_bytes(),
             mime_type='application/pdf',
         ),
         prompt]
     )
+
+    return response.json()
+        
+def main():
+
+    client = genai.Client(api_key= GEMINI_API_KEY)
+    prompt = f"Extrai do pdf o cadápio seguindo estruta json fornecida e não coloque o valor dos campos em caixa alta escreva-os normalmente respeitando a letras maiúsculas e acentos, retorne apenas JSON válido, sem markdown (```), sem texto extra: {format_json_prompt}" 
+
+    for i in urls:
+        obtain_menus(urls[i], str(i))
+        
+        if str(i) == "ctan":
+            file_path = pathlib.Path(f'../Menus/{str(i)}.pdf')
+            response = use_ia(file_path = file_path, client = client, prompt = prompt)
+            response = json.loads(response)
+            save_ctan_menu(response)
+
     
 if __name__ == '__main__':
    main()

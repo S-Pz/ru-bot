@@ -8,7 +8,13 @@ API_BASE_PATH = os.getenv('API_BASE_PATH')
 
 def save_ctan_menu (data):
    
-    response = req.post(f"{API_BASE_PATH}/ctan", data = data)
+    try:
+        response = req.post(f"{API_BASE_PATH}/ctan", json = data, timeout = 5)
+        response.raise_for_status() 
+        print(response.json()) 
 
-    if response.status_code == "201":
-        print("Cardápio Ctan salvo com sucesso")
+    except req.exceptions.HTTPError as err:
+        print(f"Erro de HTTP: {err}")
+    except Exception as e:
+        print(f"Ocorreu um erro: {e}")
+
