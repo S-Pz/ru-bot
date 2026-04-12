@@ -8,6 +8,7 @@ Menus/
 *.json
 *.sh
 *.db
+*.pdf
 
 ### VS Code ###
 .vscode/
