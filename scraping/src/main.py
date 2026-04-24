@@ -38,11 +38,10 @@ def main():
         obtain_menus(urls[i], str(i))
         
         if str(i) == "ctan":
-            print("Olá docker")
-            # file_path = pathlib.Path(f'../Menus/{str(i)}.pdf')
-            # response = use_ia(file_path = file_path, client = client, prompt = prompt)
-            # response = json.loads(response)
-            # save_ctan_menu(response)
+            file_path = pathlib.Path(f'../Menus/{str(i)}.pdf')
+            response = use_ia(file_path = file_path, client = client, prompt = prompt)
+            response = json.loads(response)
+            save_ctan_menu(response)
 
     
 if __name__ == '__main__':
