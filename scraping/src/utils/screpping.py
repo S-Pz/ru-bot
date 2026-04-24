@@ -1,4 +1,5 @@
 import requests
+import pathlib
 
 from bs4 import BeautifulSoup
 
@@ -6,8 +7,10 @@ H = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64; rv:130.0) Gecko/20100101 Fire
 
 def extract_pdf(url:str, file_name:str):
     
-    file_path = '../Menus/' + file_name + '.pdf'
-    
+    pathlib.Path("../Menus/").mkdir(exist_ok=True)
+    p = pathlib.PosixPath("../Menus/")
+    file_path = p / (file_name + '.pdf')
+
     response = requests.get(url, headers=H, timeout = 25, verify=False)
     
     if (response.status_code == 200):    

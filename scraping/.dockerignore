@@ -9,6 +9,7 @@ Menus/
 *.sh
 *.db
 *.pdf
+.python-version
 
 ### VS Code ###
 .vscode/
