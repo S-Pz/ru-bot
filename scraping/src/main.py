@@ -27,12 +27,12 @@ def use_ia(file_path:str, client, prompt:str):
         prompt]
     )
 
-    return response.json()
+    return response.text
         
 def main():
 
     client = genai.Client(api_key= GEMINI_API_KEY)
-    prompt = f"Extrai do pdf o cadápio seguindo estruta json fornecida e não coloque o valor dos campos em caixa alta escreva-os normalmente respeitando a letras maiúsculas e acentos, retorne apenas JSON válido, sem markdown (```), sem texto extra: {format_json_prompt}" 
+    prompt = f"Extrair do pdf o cadápio seguindo estruta json fornecida e não coloque o valor dos campos em caixa alta escreva-os normalmente respeitando a letras maiúsculas e acentos, retorne apenas JSON válido, sem markdown (```), sem texto extra: {format_json_prompt}" 
 
     for i in urls:
         obtain_menus(urls[i], str(i))
