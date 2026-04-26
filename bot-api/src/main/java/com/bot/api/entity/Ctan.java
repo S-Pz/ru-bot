@@ -1,28 +1,23 @@
 package com.bot.api.entity;
 
-import java.time.LocalDate;
 import java.util.Map;
 
 import com.bot.api.dto.CtanDTO;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "ru_ctans")
 public class Ctan {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private LocalDate data;
-
+    @EmbeddedId
+    @JsonUnwrapped
+    private CtanKey id;
+    
     private String diaDaSemana;
-    private String horario;
     private String pratoPricipal;
     private String vegetariano;
     private String guarnicao;
@@ -38,9 +33,11 @@ public class Ctan {
 
     public Ctan(CtanDTO dto){
         
-        this.data = dto.getData();
+        this.id = new CtanKey();
+        this.id.setData(dto.getData()); 
+        this.id.setHorario(dto.getHorario()); 
+       
         this.diaDaSemana = dto.getDiaDaSemana();
-        this.horario = dto.getHorario();
 
         if(dto.getMap() != null){
             Map<String, String> map = dto.getMap();
@@ -54,18 +51,6 @@ public class Ctan {
             this.salada2 = map.get("salada2");
         }
     }
-
-    public Long getId(){
-        return id;
-    }
-
-    public LocalDate getData(){
-        return data;
-    }
-
-    public void setData(LocalDate data){
-        this.data = data;
-    }
     
     public String getDiaDaSemana(){
         return diaDaSemana;
@@ -75,14 +60,6 @@ public class Ctan {
         this.diaDaSemana = diaDaSemana;
     }
     
-    public String getHorario (){
-        return horario;
-    }
-
-    public void setHorario (String horario){
-        this.horario = horario;
-    }
-
     public String getPratoPricipal (){
         return pratoPricipal;
     }
@@ -146,5 +123,4 @@ public class Ctan {
     public void setSobremesa(String sobremesa){
         this.sobremesa = sobremesa;
     }
-
 }

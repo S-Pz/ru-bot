@@ -49,4 +49,10 @@ public class CtanDTO {
         this.horario = chave;
         this.map = valor;      
     }
+
+   @Override
+   public String toString() {
+    return "CtanDTO [data=" + data + ", diaDaSemana=" + diaDaSemana + ", horario=" + horario + ", map=" + map + "]";
+   }
+    
 }

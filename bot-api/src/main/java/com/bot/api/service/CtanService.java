@@ -19,9 +19,9 @@ public class CtanService {
         this.repository = ctanRepository;
     }
 
-    public Ctan findByHorarioAndData (String horario, LocalDate data){
+    public Ctan findByHorarioAndData (String horario, LocalDate date){
         
-        return repository.findByHorarioAndData(horario, data)
+        return repository.findById_DataAndId_Horario(date, horario)
             .orElseThrow(()-> new RuntimeException ("Nada encontrado para a data e horário."));
     }
 
@@ -36,9 +36,9 @@ public class CtanService {
     //     return result;
     // }
 
-    public List<Ctan> findByData (LocalDate data){
+    public List<Ctan> findByData (LocalDate date){
         
-        List<Ctan> result = repository.findByData(data);
+        List<Ctan> result = repository.findById_Data(date);
 
         if (result.isEmpty()){
            throw new RuntimeException("Nenhuma data encontrada."); 
