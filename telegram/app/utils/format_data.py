@@ -9,10 +9,10 @@ def output_formated(data:dict)-> str:
     vege = "🥬 *VEGETARIANO:* " + data.get("vegetariano") + "\n"
     garni = "🍝 *GUARNIÇÃO:* " + data.get("guarnicao") + "\n"
     bean = "🫘 *FEIJÃO:* " + data.get("feijao") + "\n"
-    #sal= "🥗 *SALADAS:* " + data.get("salada1") + " / " + data.get("salada2") + "\n"
+    sal = "🥗 *SALADAS:* " + data.get("salada1") + " / " + data.get("salada2") + "\n"
     juice = "🧃 *SUCO:* " + data.get("suco") + "\n"
     dess = "🍬/🍎 *SOBREMESA:* " + data.get("sobremesa") + "\n"
 
-    response = header + main_course + vege + garni + bean + juice + dess
+    response = header + main_course + vege + garni + sal + bean + juice + dess
     
     return response

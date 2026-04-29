@@ -53,6 +53,7 @@ public class CtanController {
     
     @PostMapping()
     public ResponseEntity<List<Ctan>> crate(@RequestBody List<CtanDTO> ctanDto) {
+    
         List<Ctan> salvo = ctanService.crate(ctanDto);
 
         for (int i = 0; i< salvo.size(); i++){
